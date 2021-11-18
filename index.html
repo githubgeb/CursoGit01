@@ -1,25 +1,236 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content=
-            "width=device-width,
-            initial-scale=1
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="
+            width=device-width, 
+            initial-scale=1,
             maximum-scale=3">
-  <title>Git Desarrollo Colaborativo</title>
-  <link rel="stylesheet" href="styles/master.css">
+    <title>GIT Desarrollo Colaborativo</title>
+    <link rel="stylesheet" href="styles/master.css">
+</head>
+<body>
     <nav>
         <a href="" class="logo">GIT</a>
         <button class="btn">&equiv;</button>
         <ul class="menu">
-            <li><a href="">link 1</a></li>
-            <li><a href="">link 2</a></li>
-            <li><a href="">link 3</a></li>
+            <li><a href="#" title="Inicio">inicio</a></li>
+            <li><a href="about.html" title="Acerca">acerca</a></li>
+            <li><a href="gallery.html" title="Galeria">galeria</a></li>
+            <li><a href="#contact" title="Contacto">contacto</a></li>
         </ul>
     </nav>
-</head>
-<body>
-    
+    <header>
+        <h1>GIT</h1>
+        <p>Desarrollo Colaborativo</p>
+    </header>
+    <!-- Configuracion inicial -->
+    <section>
+        <h2>Areas de GIT</h2>
+        <article>
+            <h3>Working Directory</h3>
+            <p>
+                Es el area de trabajo, donde vamos a crear, editar, eliminar los diferentes archivos que formen parte de nuestro proyecto. Muy rara vez estaremos utilizando la consola en esta instancia que basicamente estaria representada por la carpeta donde inicializamos el repositorio.
+            </p>
+            <ul class="commands">
+                <li><strong>dir || ls</strong> muestra el contenido del directorio actual</li>
+                <li><strong>mkdir &lt;name></strong> crea una carpeta</li>
+                <li><strong>cd &lt;path></strong> abre la carpeta o ruta seleccionada</li>
+                <li><strong>git init</strong> inicializa un repositorio de git</li>
+                <li><strong>rm -rf .git</strong> elimina el repositorio de manera forzada</li>
+            </ul>
+        </article>
+        <article>
+            <h3>Staging Area (INDEX)</h3>
+            <p>
+                Es el area de control de cambios donde se realizan las capturas de codigo (Snapshot) y basicamente donde indicamos a que archivos vamos a estar realizando seguimiento. Una vez agregados los cambios solamente debemos confirmalos para agregarlos al repositorio.
+            </p>
+            <ul class="commands">
+                <li><strong>git status</strong> muestra el estado del archivo en relacion al INDEX
+                    <ul>
+                        <li><strong>untracked: </strong> no se esta haciendo seguimiento, irrecuperable en caso de perdida</li>
+                        <li><strong>staged: </strong> se realizo la captura del codigo, pero no se confirmo</li>
+                        <li><strong>commited: </strong> se confirmo la captura y se almacenaron los cambios en el historial.</li>
+                        <li><strong>modified: </strong> el archivo difiere con respecto a la ultima confirmacion</li>
+                    </ul>
+                </li>
+                <li><strong>git add &lt;file></strong> agrega los cambios del archivo al INDEX</li>
+                <li><strong>git diff</strong> muestra las diferencias entre el INDEX y el Working Directory</li>
+                <li><strong>git restore --staged &lt;file></strong> elimina la ultima captura realizada</li>
+                <li><strong>git rm --cached  &lt;file></strong> quita el archivo del INDEX, no se hace seguimiento</li>
+            </ul>
+        </article>
+        <article>
+            <h3>Repository</h3>
+            <p>
+                Es el area donde se almacenan las confirmaciones de los cambios realizados en archivos de tipo BLOB (Binary Large Object File), se utilizan como puntos de referencia a los que podemos volver siempre y cuando indiquemos a git cual es el numero que HASH o posicion que queremos visualizar.
+            </p>
+            <ul class="commands">
+                <li><strong>git commit</strong> abre el editor para realizar la confirmacion de cambios</li>
+                <li><strong>git log</strong> muestra el historial de confirmacion de manera descendente</li> 
+                <li><strong>git blame &lt;file></strong> muestra el autor, numero de HASH, fecha y hora en la que se modifico cada linea del archivo</li>
+                <li><strong>git checkout &lt;ref></strong> mueve el apuntador a la posicion seleccionada</li>
+                <li><strong>git fetch &lt;remote></strong> captura el histrial de cambios del repositorio remoto</li>
+                <li><strong>git push &lt;remote> &lt;branch</strong> sube los cambios de la rama seleccionada al repositorio remoto</li>
+            </ul>
+        </article>
+    </section>
+    <section>
+        <h2>Apuntadores GIT</h2>
+        <article>
+            <h3>HEAD</h3>
+            <p>
+                Apuntador movil que indica donde nos encontramos actualmente dentro del historial de confirmaciones, normalmente se encuentra señalando al ultimo cambio realizado. Tambien se utiliza como referente cuando necesitamos volver o comparar commit anteriores escribiendo por ejemplo: <em>HEAD~2</em> o <em>HEAD^^</em> para indicar que estamos señalando al ancestro que se encuentra 2 confirmaciones atras.
+            </p>
+        </article>
+        <article>
+            <h3>BRANCH</h3>
+            <p>
+                Apuntador dinamico que siempre hace refencia al ultimo commit dentro de la linea en la que nos encontramos, se utiliza para probar caracteristicas o implementaciones dentro de nuestro proyecto sin comprometer la rama principal
+            </p>
+            <ul class="commands">
+                <li><strong>git branch</strong> muestra las ramas creadas en el repositorio.</li>
+                <li><strong>git branch &lt;name></strong> crea una nueva rama a partir de la posicion actual.</li>
+                <li><strong>git branch -mv &lt;name></strong> modifica el nombre de la rama actual.</li>
+                <li><strong>git branch -d &lt;branch></strong> elimina la rama solo si se integraron los cambios.</li>
+                <li><strong>git branch -D &lt;branch></strong> elimina la rama aunque no se hayan integrado los cambios.</li>
+                <li><strong>git push -u &lt;remote> &lt;branch></strong> agrega la rama al repositorio remoto</li>
+                <li><strong>git push -d &lt;remote> &lt;branch></strong> elimina la rama del repositorio remoto</li>
+            </ul>
+        </article>
+        <article>
+            <h3>TAG</h3>
+            <p>
+                Apuntador estatico que se correponde con el commit donde haya sido aplicado, se utiliza principalmente para el versionado de nuestro proyecto y se utiliza un formato similar al siguiente <em>vn.n.n</em> para indicar version principal, subversion o compilacion y correcciones o revisiones.
+            </p>
+            <ul class="commands">
+                <li><strong>git tag -l</strong> muestra las etiquetas creadas en el respositorio</li>
+                <li><strong>git tag &lt;name></strong> asigna al commit actual una etiqueta.</li>
+                <li><strong>git tag &lt;new> &lt;old></strong> asigna una nueva etiqueta donde se encuentra la seleccionada.</li>
+                <li><strong>git tag -d &lt;tag></strong> elimina la etiqueta especificada.</li>
+                <li><strong>git push --tags</strong> agrega al repositorio remoto las etiquetas locales.</li>
+                <li><strong>git push -d &lt;remote> &lt;tag></strong> elimina del respositorio remoto la etiqueta seleccionada.</li>
+            </ul>
+        </article>
+        <article>
+            <h3>STASH</h3>
+            <p>
+                Apuntador de la zona temporal que permite almacenar los cambios en una confirmacion que integra las modificaciones almacenadas en el INDEX y se relaciona con el commit donde se haya realizado. Es ideal para cambiar de ramas cuando tenemos trabajo pendiente, que no amerita un commit. Al reaplicar los cambios se realiza una operacion merge a la inversa.
+            </p>
+            <ul class="commands">
+                <li><strong>git stash </strong> almacena los cambios del INDEX en la zona temporal.</li>
+                <li><strong>git stash list</strong> muestra la referencias almacenadas en la zona temporal.</li>
+                <li><strong>git stash apply stash@{n}</strong> aplica los cambios almacenados en la zona temporal.</li>
+                <li><strong>git stash drop stash@{n}</strong> elimina las referencia de la zona temporal de cambios</li>
+                <li><strong>git stash pop stash@{n}</strong> aplica los cambios y elimina la referencia de la zona temporal.</li>
+            </ul>
+        </article>
+    </section>
+    <section>
+        <h2>Control de Cambios</h2>
+        <article>
+            <h3>RESET</h3>
+            <p>
+                Este comando elimina los commits intermedios desde el ultimo hasta el que hayamos utilizado como referencia, es bastante practico si aun no subimos los cambios al repositorio remoto y debemos deshacer algunas confirmaciones o simplemente queremos reaplicar los commits de manera diferente.
+            </p>
+            <ul class="commands">
+                <li><strong>git reset &lt;ref></strong> elimina los commits, no afecta al INDEX ni al Working Directory.</li>
+                <li><strong>git reset --mixed &lt;ref></strong> elimina los commits y reestablece el INDEX.</li>
+                <li><strong>git reset --hard &lt;ref></strong> reestablece el proyecto hasta el punto seleccionado.</li>
+                <li><strong>git reset &lt;ref> -- &lt;file> </strong> reestablece un archivo a como se encontraba en el commit seleccionado.</li>
+            </ul>
+        </article>
+        <article>
+            <h3>REVERT</h3>
+            <p>
+                Este comando genera un commit que realiza las operaciones contrarias a las del commit referenciado, es ideal cuando necesitamos revertir un cambio que ya fue subido al repositorio remoto, especialmente si el mismo fue realizado hace varias confirmaciones.
+            </p>
+            <ul class="commands">
+                <li><strong>git revert &lt;ref></strong> realiza un commit con las operaciones inversas del commit referenciado.</li>
+                <li><strong>git revert --abort</strong> cancela el proceso de reversion en caso de que se haya detectado un conflicto.</li>
+                <li><strong>git revert --continue</strong> una vez resuelto el conflicto, continua con el proceso de reversion.</li>
+            </ul>
+        </article>
+    </section>
+    <footer id="footer">
+        <!-- mapa de contacto -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0725634325668!2d-58.37801208417489!3d-34.60232656493268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccacc41153a23%3A0xeb2ed79d5240bc97!2sISTEA%20-%20Educaci%C3%B3n%20IT!5e0!3m2!1sen!2sar!4v1634341901742!5m2!1sen!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <!-- redes sociales -->
+        <div class="social">
+            <a href="https://github.com/C215714N/git-v19/" target="_blank">GitHub</a>
+            <a href="https://gitlab.com/C215714N/git-v19" target="_blank">GitLab</a>
+            <a href="https://bitbucket.org/C215714N/git-v19" target="_blank">BitBucket</a>
+        </div>
+        <table class="colabs">
+            <caption>Colaboradores</caption>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cristian Racedo</td>
+                    <td>c215714n</td>
+                    <td>cristiandracedo@hotmail.com</td>
+                </tr>
+                <tr>
+                    <td>Alejandro Luis Rolón</td>
+                    <td>alejandrorol</td>
+                    <td>alejandro.rolon.alr@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Tatiana Sanchez</td>
+                    <td>TatianaSanchez23</td>
+                    <td>tatiana.sanchez@previsoradelparana.com</td>
+                </tr>
+                <tr>
+                    <td>Esteban Anfuso</td>
+                    <td>eanfuso</td>
+                    <td>esteban.anfuso@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Gonzalo Mercader</td>
+                    <td>GonzaMS0428</td>
+                    <td>gonzalomercader@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Sergio Misserendino</td>
+                    <td>smisserendino</td>
+                    <td>smisserendino@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Federico Contarino</td>
+                    <td>fcontarino</td>
+                    <td>asd123@mail.com</td>
+                </tr>
+                <tr>
+                    <td>Esteban Maciel</td>
+                    <td>estebanmaciel</td>
+                    <td>estebanmaciel@mail.com</td>
+                </tr>
+                <tr>
+                    <td>gaston disciglio</td>
+                    <td>gDisc</td>
+                    <td>gastondisciglio@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Francisco Zini</td>
+                    <td>francisgit85</td>
+                    <td>francisco.zini@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Leonard Amaya</td>
+                    <td>leompe8907</td>
+                    <td>veyqpasa1312@gmail.com</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>© GIT:Desarrollo Colaborativo 2021 - Todos los derechos reservados.</p>
+    </footer>
+    <script src="scripts/master.js"></script>
 </body>
 </html>
